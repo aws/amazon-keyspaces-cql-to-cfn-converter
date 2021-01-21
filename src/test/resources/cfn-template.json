@@ -1,0 +1,117 @@
+{
+  "Resources": {
+    "Keyspace1": {
+      "Type": "AWS::Cassandra::Keyspace",
+      "Properties": {
+        "KeyspaceName": "ks"
+      }
+    },
+    "Table1": {
+      "Type": "AWS::Cassandra::Table",
+      "Properties": {
+        "KeyspaceName": {
+          "Ref": "Keyspace1"
+        },
+        "PartitionKeyColumns": [
+          {
+            "ColumnName": "pk",
+            "ColumnType": "int"
+          }
+        ],
+        "BillingMode": {
+          "Mode": "PROVISIONED",
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 10,
+            "WriteCapacityUnits": 5
+          }
+        },
+        "ClusteringKeyColumns": [],
+        "RegularColumns": [
+          {
+            "ColumnName": "my_text",
+            "ColumnType": "text"
+          },
+          {
+            "ColumnName": "my_float",
+            "ColumnType": "float"
+          },
+          {
+            "ColumnName": "my_double",
+            "ColumnType": "double"
+          }
+        ],
+        "TableName": "t1"
+      }
+    },
+    "Table2": {
+      "Type": "AWS::Cassandra::Table",
+      "Properties": {
+        "KeyspaceName": {
+          "Ref": "Keyspace1"
+        },
+        "PartitionKeyColumns": [
+          {
+            "ColumnName": "pk1",
+            "ColumnType": "text"
+          },
+          {
+            "ColumnName": "pk2",
+            "ColumnType": "int"
+          }
+        ],
+        "ClusteringKeyColumns": [
+          {
+            "Column": {
+              "ColumnName": "ck1",
+              "ColumnType": "text"
+            },
+            "OrderBy": "DESC"
+          },
+          {
+            "Column": {
+              "ColumnName": "ck2",
+              "ColumnType": "int"
+            },
+            "OrderBy": "ASC"
+          }
+        ],
+        "RegularColumns": [
+          {
+            "ColumnName": "my_list",
+            "ColumnType": {
+              "Fn::Sub": [
+                "list<${Types}>",
+                {
+                  "Types": "decimal"
+                }
+              ]
+            }
+          },
+          {
+            "ColumnName": "my_set",
+            "ColumnType": {
+              "Fn::Sub": [
+                "set<${Types}>",
+                {
+                  "Types": "decimal"
+                }
+              ]
+            }
+          },
+          {
+            "ColumnName": "my_map",
+            "ColumnType": {
+              "Fn::Sub": [
+                "map<${Types}>",
+                {
+                  "Types": "decimal,decimal"
+                }
+              ]
+            }
+          }
+        ],
+        "TableName": "t2"
+      }
+    }
+  }
+}
