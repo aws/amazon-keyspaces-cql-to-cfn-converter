@@ -17,14 +17,6 @@
  * limitations under the License.
  * #L%
  */
-/*
- * TODO: Should we keep the following comments?
- *
- * Adapted from:
- * https://github.com/apache/cassandra/blob/1d506f9d09c880ff2b2693e3e27fa58c02ecf398/src/antlr/Cql.g
- * https://github.com/apache/cassandra/blob/1d506f9d09c880ff2b2693e3e27fa58c02ecf398/src/antlr/Parser.g
- * https://github.com/apache/cassandra/blob/1d506f9d09c880ff2b2693e3e27fa58c02ecf398/src/antlr/Lexer.g
- */
 
 grammar CfnCompatibleCql;
 
